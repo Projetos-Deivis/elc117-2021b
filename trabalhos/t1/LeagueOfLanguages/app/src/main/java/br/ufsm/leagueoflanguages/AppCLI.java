@@ -4,6 +4,7 @@
 package br.ufsm.leagueoflanguages;
 
 import java.util.List;
+import java.util.Comparator;
 
 
 public class AppCLI {
@@ -23,7 +24,7 @@ public class AppCLI {
     }
   }
 
-  private static void saveLanguage(String[] args) throws Exception {
+  public static void saveLanguage(String[] args) throws Exception {
     String languageId = args[1];
     String firstAppeared = args[2];
     String paradigm = args[3];
@@ -37,11 +38,11 @@ public class AppCLI {
   private static void findAllLanguages() throws Exception {
     LanguageRepository repository = new LanguageRepository();
     List<Language> languages = repository.findAll();
+    languages.sort(Comparator.comparing(Language::getFirstAppeared));
     for (Language lang: languages) {
       System.out.println(lang);
-    }    
+    }
   }
 
-  
 }
 
